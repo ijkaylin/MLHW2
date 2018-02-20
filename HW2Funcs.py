@@ -150,7 +150,6 @@ def trainingerror(training, trainlabels, wfinal):
     hits = (preds == np.array(trainlabels)).sum()
     error = 1- (hits / training.shape[0])
     return error
-trainingerror(train_stop_mat_test, train_labels_test, w_final)
 
 def overlap(traindict, testdict, wfinal):
     """
