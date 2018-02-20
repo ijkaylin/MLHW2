@@ -24,45 +24,45 @@ def problem1():
     test_labels = test['label']
     
     
-    ############## Unigram Representation ################
-    #Create the TF training matrix
-    train_unigram, train_features = F.unigram(train_sub)
-    test_unigram, test_features = F.unigram(test)
-    
-    #Add bias to training data and test
-    bias_train = np.ones((500000,1))
-    bias_test = np.ones((320122,1))
-    
-    train_uni_mat = hstack((train_unigram, bias_train))
-    test_uni_mat = hstack((test_unigram, bias_test))
-    
-    train_uni_mat = train_uni_mat.tocsr()
-    test_uni_mat = test_uni_mat.tocsr()
-    
-    w_final = F.perceptron(train_uni_mat, train_labels)
-    print("The training error for unigram representation is " +\
-        str(F.trainingerror(train_uni_mat, train_labels, w_final)))
-    
-    w_final_test = F.overlap(train_features, test_features, w_final)
-    
-    print ("The test error for unigram representation is " +\
-        str(F.testerror(test_uni_mat, test_labels, w_final_test)))
-        
-        
-
-    ##### Find the words with the largest weights
-    ind = np.argpartition(w_final_test, -10)[-10:]
-    ind = list(ind)
-    maximums = [train_features.keys()[train_features.values().index(i)] for i in ind]
-    maximums.sort()
-    print(maximums)
-
-    
-    negind = np.argpartition(w_final_test, 10)[-10::]
-    negind = list(negind)
-    minimums = [train_features.keys()[train_features.values().index(i)] for i in negind]
-    minimums.sort()
-    print(minimums)
+#    ############## Unigram Representation ################
+#    #Create the TF training matrix
+#    train_unigram, train_features = F.unigram(train_sub)
+#    test_unigram, test_features = F.unigram(test)
+#    
+#    #Add bias to training data and test
+#    bias_train = np.ones((500000,1))
+#    bias_test = np.ones((320122,1))
+#    
+#    train_uni_mat = hstack((train_unigram, bias_train))
+#    test_uni_mat = hstack((test_unigram, bias_test))
+#    
+#    train_uni_mat = train_uni_mat.tocsr()
+#    test_uni_mat = test_uni_mat.tocsr()
+#    
+#    w_final = F.perceptron(train_uni_mat, train_labels)
+#    print("The training error for unigram representation is " +\
+#        str(F.trainingerror(train_uni_mat, train_labels, w_final)))
+#    
+#    w_final_test = F.overlap(train_features, test_features, w_final)
+#    
+#    print ("The test error for unigram representation is " +\
+#        str(F.testerror(test_uni_mat, test_labels, w_final_test)))
+#        
+#        
+#
+#    ##### Find the words with the largest weights
+#    ind = np.argpartition(w_final_test, -10)[-10:]
+#    ind = list(ind)
+#    maximums = [train_features.keys()[train_features.values().index(i)] for i in ind]
+#    maximums.sort()
+#    print(maximums)
+#
+#    
+#    negind = np.argpartition(w_final_test, 10)[-10::]
+#    negind = list(negind)
+#    minimums = [train_features.keys()[train_features.values().index(i)] for i in negind]
+#    minimums.sort()
+#    print(minimums)
         
 #    ############### TD-IDF REPRESENTATION ###############
 #    train_idf, train_features = F.tdidf(train_sub)
@@ -93,31 +93,31 @@ def problem1():
 #        str(F.testerror(test_idf_mat, test_labels, w_final_test)))
 #    
 #            
-#    ############### Bigram  REPRESENTATION ###############
-#    train_bi, train_features = F.bigram(train_sub)
-#    test_bi, test_features = F.bigram(test)
-#    
-#    #Add bias to training data and test
-#    bias_train = np.ones((500000,1))
-#    bias_test = np.ones((320122,1))
-#    
-#    train_bi_mat = hstack((train_bi, bias_train))
-#    test_bi_mat = hstack((test_bi, bias_test))
-#    
-#    train_bi_mat = train_bi_mat.tocsr()
-#    test_bi_mat = test_bi_mat.tocsr()
-#    
-##    train_bi_mat_test = train_bi_mat[0:100,:]
-##    train_labels_test = train_labels.iloc[0:100]
-#    
-#    w_final = F.perceptron(train_bi_mat, train_labels)
-#    print("The training error for bigram representation is " +\
-#        str( F.trainingerror(train_bi_mat,train_labels, w_final)))
-#    
-#    w_final_test = F.overlap(train_features, test_features, w_final)
-#    
-#    print("The test error for bigram representation is " +\
-#        str(F.testerror(test_bi_mat, test_labels, w_final_test)))
+    ############### Bigram  REPRESENTATION ###############
+    train_bi, train_features = F.bigram(train_sub)
+    test_bi, test_features = F.bigram(test)
+    
+    #Add bias to training data and test
+    bias_train = np.ones((500000,1))
+    bias_test = np.ones((320122,1))
+    
+    train_bi_mat = hstack((train_bi, bias_train))
+    test_bi_mat = hstack((test_bi, bias_test))
+    
+    train_bi_mat = train_bi_mat.tocsr()
+    test_bi_mat = test_bi_mat.tocsr()
+    
+#    train_bi_mat_test = train_bi_mat[0:100,:]
+#    train_labels_test = train_labels.iloc[0:100]
+    
+    w_final = F.perceptron(train_bi_mat, train_labels)
+    print("The training error for bigram representation is " +\
+        str( F.trainingerror(train_bi_mat,train_labels, w_final)))
+    
+    w_final_test = F.overlap(train_features, test_features, w_final)
+    
+    print("The test error for bigram representation is " +\
+        str(F.testerror(test_bi_mat, test_labels, w_final_test)))
 #        
 #    ############### Fourth Representation: Porter Stemmer ###############
 #    train_stop, train_features = F.stopwords(train_sub)
