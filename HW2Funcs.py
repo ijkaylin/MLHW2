@@ -145,9 +145,12 @@ def trainingerror(training, trainlabels, wfinal):
     #Create np float array product
     product = training.dot(wfinal.T)
     preds= np.where(product>=0.0, 1, -1)
-    hits = (preds == trainlabels).sum()
+    preds = preds.ravel()
+    
+    hits = (preds == np.array(trainlabels)).sum()
     error = 1- (hits / training.shape[0])
     return error
+trainingerror(train_stop_mat_test, train_labels_test, w_final)
 
 def overlap(traindict, testdict, wfinal):
     """
